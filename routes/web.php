@@ -13,6 +13,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PembayaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,3 +102,13 @@ Route::middleware('auth')->group(function() {
 });
 
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+
+
+
+Route::post('/pembayaran/upload', [PembayaranController::class, 'upload'])->name('pembayaran.upload');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/rental', [RentalController::class, 'index'])->name('rental.index');
+    Route::get('/rental/create/{bus_id}', [RentalController::class, 'create'])->name('rental.create');
+    Route::post('/rental/store', [RentalController::class, 'store'])->name('rental.store');
+});
